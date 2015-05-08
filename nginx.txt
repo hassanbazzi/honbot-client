@@ -2,10 +2,10 @@ server {
     listen   80;
 
     server_name www.honbot.com beta.honbot.com;
-    access_log /home/sc/honbot-django/clientaccess.log;
-    error_log /home/sc/honbot-django/clienterror.log; 
-    root /home/sc/honbot-django/client/dist/;
-    set $host_path "/home/sc/honbot-django/client/dist/";
+    access_log /home/sc/honbot-client/clientaccess.log;
+    error_log /home/sc/honbot-client/clienterror.log; 
+    root /home/sc/honbot-client/client/dist/;
+    set $host_path "/home/sc/honbot-client/client/dist/";
     index index.html;
 
     # Re-route nested routes through index
