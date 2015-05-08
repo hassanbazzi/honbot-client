@@ -1,0 +1,96 @@
+<!-- Main Hero -->
+<div class="home" ng-style="ctrl.jumbostyle">
+    <div class="mainjumbo">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <img src="/assets/images/mainlogo.png">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <form ng-submit="ctrl.search()">
+                        <div class="input-group">
+                            <input type="text" ng-model="ctrl.nickname" placeholder="Username" class="form-control input-lg" spellcheck="false" autocorrect="off" autocapitalize="off" autofocus>
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-default btn-lg" type="button"><i class="fa fa-search"></i></button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+<!--             <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <br>
+                    <ul class="list-inline text-center home-inline">
+                        <li><a href="/player/">Players</a></li>
+                        <li><a href="/match/">Matches</a></li>
+                        <li><a href="/hero/">Heroes</a></li>
+                        <li><a href="/item/">Items</a></li>
+                    </ul>
+                    <br>
+                </div>
+            </div> -->
+
+        </div>
+    </div>
+    <br>
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h5 class="panel-title text-center">Recently Updated</h5>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-inline home-inline">
+                            <li ng-repeat="update in ctrl.updates track by $index">
+                                <a href="/player/{{update.nickname}}/">{{update.nickname}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title text-center">Server Stats</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <strong>Database</strong>
+                                <ul class="list-unstyled">
+                                    <li>Players: {{ ctrl.count.players | number }}</li>
+                                    <li>Matches: {{ ctrl.count.matches | number }}</li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-6">
+                                <strong>S2 API:</strong>
+                                <ul class="list-unstyled">
+                                    <li>Status: 
+                                        <span ng-if="ctrl.success > ctrl.failure" class="text-success">Good</span>
+                                        <span ng-if="ctrl.success < ctrl.failure" class="text-danger">Bad</span>
+                                        <span ng-if="ctrl.success == ctrl.failure" class="text-warning">?</span>
+                                    </li>
+                                    <li>Requests: {{ ctrl.apiCount }}</li>
+                                </ul>
+                            </div>
+                            <div class="col-xs-12">
+                                <!-- <a href="/sitestats/">More</a> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

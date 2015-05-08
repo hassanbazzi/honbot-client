@@ -1,0 +1,43 @@
+<div ng-controller="HistoryCtrl as ctrl">
+    <table id="history" class="table table-header table-condensed">
+        <thead>
+            <tr>
+                <th class="text-center">Hero</th>
+                <th class="text-center">K</th>
+                <th class="text-center">D</th>
+                <th class="text-center">A</th>
+                <th class="text-center">KDR</th>
+                <th class="text-center">APM</th>
+                <th class="text-center">GPM</th>
+                <th class="text-center">XPM</th>
+                <th class="text-center">+/-</th>
+                <th class="text-center">Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="match in ctrl.history track by $index" ng-click="ctrl.goMatch(match.match_id)" ng-class="{matchloss: !match.win, matchwin: match.win}">
+                <td><img ng-src="//www.heroesofnewerth.com/images/heroes/{{match.hero_id}}/icon_128.jpg" width="30">{{ match.level }}</td>
+                <td>{{ match.kills }}</td>
+                <td>{{ match.deaths }}</td>
+                <td>{{ match.assists }}</td>
+                <td>{{ match.kdr | number:2 }}</td>
+                <td>{{ match.apm | number:0 }}</td>
+                <td>{{ match.gpm | number:0 }}</td>
+                <td>{{ match.xpm | number:0 }}</td>
+                <td>{{ match.mmr_change | number:1 }}</td>
+                <td am-time-ago="match.date"></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="text-center">
+        <div ng-show="ctrl.loading" class="spinner">
+            <div class="rect1"></div>
+            <div class="rect2"></div>
+            <div class="rect3"></div>
+            <div class="rect4"></div>
+            <div class="rect5"></div>
+        </div>
+        <p ng-show="ctrl.nomore">Reached the end of available matches</p>
+        <a ng-click="ctrl.more()" ng-show="!ctrl.nomore && !ctrl.loading" class="btn btn-default btn-small">More</a>
+    </div>
+</div>

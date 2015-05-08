@@ -1,0 +1,37 @@
+<div class="row phead">
+    <div class="col-sm-7">
+        <div class="media">
+            <div class="media-left media-middle">
+                <img ng-src="https://www.heroesofnewerth.com/getAvatar_SSL.php?id={{ ctrl.s.account_id }}" width="70">
+            </div>
+            <div class="media-body">
+                <h2 class="media-heading">{{ ctrl.s.nickname || ctrl.nickname }}</h2>
+                <div class="btn-group" style="margin-top: 3px;">
+                    <a class="btn btn-xs" ng-class="{'btn-default': ctrl.m != 'rnk', 'btn-info': ctrl.m == 'rnk'}" ng-click="ctrl.changeMode('/')">Ranked</a>
+                    <a class="btn btn-xs" ng-class="{'btn-default': ctrl.m != 'cs', 'btn-info': ctrl.m == 'cs'}" ng-click="ctrl.changeMode('/c/')">Casual</a>
+                    <a class="btn btn-xs" ng-class="{'btn-default': ctrl.m != 'acc', 'btn-info': ctrl.m == 'acc'}" ng-click="ctrl.changeMode('/p/')">Public</a>
+                </div>
+                <div class="btn-group" style="margin-top: 3px; margin-left: 3px;">
+                    <a class="btn btn-xs" ng-class="{'btn-default': ctrl.page != 'stats', 'btn-warning': ctrl.page == 'stats'}" ng-click="ctrl.changePage('player')">Stats</a>
+                    <a class="btn btn-xs" ng-class="{'btn-default': ctrl.page != 'analytics', 'btn-warning': ctrl.page == 'analytics'}" ng-click="ctrl.changePage('analytics')">Analytics</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-5">
+        <div class="row">
+            <div class="col-xs-3 text-center">
+                <h4>mmr</h4>{{ ::ctrl.s[ctrl.m + '_amm_team_rating'] || ctrl.s[ctrl.m + '_pub_skill'] | numeraljs:'0' }}
+            </div>
+            <div class="col-xs-3 text-center">
+                <h4 class="text-success">win</h4>{{ ::ctrl.s[ctrl.m + '_wins'] }}
+            </div>
+            <div class="col-xs-3 text-center">
+                <h4 class="text-danger">loss</h4>{{ ::ctrl.s[ctrl.m + '_losses'] }}
+            </div>
+            <div class="col-xs-3 text-center">
+                <h5 style="margin-top: 21px;">{{ ctrl.s[ctrl.m + '_winpercent'] * 100 | number:1 }}%</h5>
+            </div>
+        </div>
+    </div>
+</div>
