@@ -26,7 +26,7 @@ exports.paths = {
 exports.wiredep = {
   directory: 'bower_components',
   exclude: [/jquery/, /bootstrap-sass-official\/.*\.js/, /bootstrap\.css/, /waypoints/],
-  overrides: {
+    overrides: {
     'socket.io-client': {
       main: 'socket.io.js'
     }
@@ -37,8 +37,10 @@ exports.wiredep = {
  *  Common implementation for an error handler of a Gulp plugin
  */
 exports.errorHandler = function(title) {
+  'use strict';
+
   return function(err) {
     gutil.log(gutil.colors.red('[' + title + ']'), err.toString());
     this.emit('end');
   };
-}
+};

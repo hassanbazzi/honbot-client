@@ -14,7 +14,7 @@ function listFiles() {
 
   return wiredep(wiredepOptions).js
     .concat([
-      path.join(conf.paths.tmp, '/serve/app/index.js'),
+      path.join(conf.paths.tmp, '/serve/app/index.module.js'),
       path.join(conf.paths.src, '/**/*.spec.js'),
       path.join(conf.paths.src, '/**/*.mock.js')
     ]);
@@ -33,7 +33,7 @@ module.exports = function(config) {
 
     ngHtml2JsPreprocessor: {
       stripPrefix: 'src/',
-      moduleName: 'client'
+      moduleName: 'honbotClient'
     },
 
     browsers : ['PhantomJS'],
