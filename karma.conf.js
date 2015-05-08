@@ -33,7 +33,7 @@ module.exports = function(config) {
 
     ngHtml2JsPreprocessor: {
       stripPrefix: 'src/',
-      moduleName: 'honbotClient'
+      moduleName: 'client'
     },
 
     browsers : ['PhantomJS'],
