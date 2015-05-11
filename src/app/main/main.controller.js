@@ -1,7 +1,5 @@
 'use strict';
 
-import _ from 'lodash';
-
 class MainCtrl {
     constructor($scope, $http, $location, largeHero, $interval, ApiService) {
 
@@ -11,9 +9,9 @@ class MainCtrl {
         vm.failure = 0;
 
         // set background image
-        var image = largeHero[_.random(1, largeHero.length)];
+        var image = largeHero[_.random(0, largeHero.length)];
         vm.jumbostyle = {
-            'background-image': `url(${image})`
+            'background-image': `url(assets/images/largehero/${image}.png)`
         };
 
         ApiService.apiCalls(res=>{
