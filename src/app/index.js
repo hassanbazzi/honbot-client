@@ -12,7 +12,7 @@ import socket from './factories/socket';
 import largeHero from './largeHero';
 import heroData from './heroData';
 
-angular.module('client', ['ngRoute', 'mgcrea.ngStrap', 'angularMoment', 'btford.socket-io', 'ngNumeraljs'])
+angular.module('client', ['ngRoute', 'mgcrea.ngStrap', 'angularMoment', 'btford.socket-io', 'ngNumeraljs', 'angulartics', 'angulartics.google.analytics'])
     .controller('MainCtrl', MainCtrl)
     .controller('NavbarCtrl', NavbarCtrl)
     .controller('PlayerCtrl', PlayerCtrl)

@@ -4,12 +4,13 @@ import _ from 'lodash';
 
 class ApiService {
 
-    constructor($http, BaseUrl, socket) {
-        this.host = BaseUrl.host;
+    constructor($http, BaseUrl, socket, $analytics) {
+        this.$analytics = $analytics;
         this.$http = $http;
-        this.socket = socket;
-        this.matches = {};
         this.apiWatching = false;
+        this.host = BaseUrl.host;
+        this.matches = {};
+        this.socket = socket;
         this.updatesList = [];
         this.updateWatching = false;
     }
@@ -24,6 +25,7 @@ class ApiService {
     updates(callback) {
         var that = this;
         if(!this.updateWatching){
+            this.$analytics.eventTrack('api', {category: 'main', label: 'recentPlayers'});
             this.$http.get(`${this.host}/recentPlayers/`).success((res)=>{
                 that.updatesList = that.updatesList.concat(res);
                 callback(that.updatesList);
@@ -38,9 +40,11 @@ class ApiService {
         callback(this.updatesList);
     }
     counts(){
+            this.$analytics.eventTrack('api', {category: 'main', label: 'counts'});
         return this.$http.get(`${this.host}/counts/`);
     }
     singlePlayer(nickname) {
+        this.$analytics.eventTrack('api', {category: 'player', label: nickname});
         return this.$http({
             method: 'GET',
             url: `${this.host}/player/${nickname}/`,
@@ -48,12 +52,15 @@ class ApiService {
         });
     }
     bulkPlayers(pids){
+            this.$analytics.eventTrack('api', {category: 'players', label: 'bulk'});
         return this.$http.get(`${this.host}/bulkPlayers/${pids}/`);
     }
     history(pid, mode, page) {
+        this.$analytics.eventTrack('api', {category: 'history', label: pid});
         return this.$http.get(`${this.host}/history/${pid}/${page}/${mode}/`);
     }
     match(id, callback) {
+        this.$analytics.eventTrack('api', {category: 'match', label: id});
         if (!this.matches[id]) {
              this.$http.get(`${this.host}/match/${id}/`).success(res => {
                 this.matches[id] = res;
@@ -71,6 +78,6 @@ class ApiService {
     }
 }
 
-ApiService.$inject = ['$http', 'BaseUrl', 'socket'];
+ApiService.$inject = ['$http', 'BaseUrl', 'socket', '$analytics'];
 
 export default ApiService;

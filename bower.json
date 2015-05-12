@@ -15,6 +15,7 @@
     "lodash": "~3.8.0",
     "angular-numeraljs": "~1.1.6",
     "numeral": "~1.5.3",
-    "metrics-graphics": "~2.4.0"
+    "metrics-graphics": "~2.4.0",
+    "angulartics": "~0.17.2"
   }
 }
