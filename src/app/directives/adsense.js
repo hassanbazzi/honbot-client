@@ -15,4 +15,6 @@ var adsense = function($timeout) {
     };
 };
 
+adsense.$inject = ['$timeout'];
+
 export default adsense;
