@@ -26,8 +26,7 @@ angular.module('client', ['ngRoute', 'mgcrea.ngStrap', 'angularMoment', 'btford.
     .directive('adsense', adsense)
     .constant('largeHero', largeHero)
     .constant('heroData', heroData)
-    .config(['$routeProvider', '$locationProvider', '$numeraljsConfigProvider', AppController])
-    .run(['$rootScope', AppRunner]);
+    .config(['$routeProvider', '$locationProvider', '$numeraljsConfigProvider', AppController]);
 
 function AppController($routeProvider, $locationProvider, $numeraljsConfigProvider) {
     $numeraljsConfigProvider.setDefaultFormat('0.0 $');
@@ -61,16 +60,4 @@ function AppController($routeProvider, $locationProvider, $numeraljsConfigProvid
         .otherwise({
             redirectTo: '/'
         });
-}
-
-function AppRunner($rootScope) {
-    $rootScope.$on('$routeChangeStart', function(){
-        // Object.keys(window).filter(function(k) { return /google/.test(k) }).forEach(
-        //     function(key) {
-        //         console.log(key)
-        //         console.log(window[key])
-        //         delete(window[key]);
-        //     }
-        // );
-    })
 }
