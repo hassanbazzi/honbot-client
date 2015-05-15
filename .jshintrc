@@ -22,6 +22,8 @@
     "_": false,
     "io": false,
     "MG": false,
+    "adsbygoogle": false,
+    "window": false,
     // Angular Mocks
     "inject": false,
     "module": false,

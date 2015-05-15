@@ -3,7 +3,7 @@
 import _ from 'lodash';
 
 class MatchCtrl {
-    constructor($routeParams, ApiService, heroData, BaseUrl) {
+    constructor($routeParams, ApiService, heroData, BaseUrl, $scope) {
         let vm = this;
 
         vm.BaseUrl = BaseUrl.host;
@@ -18,10 +18,42 @@ class MatchCtrl {
             3: 'acc'
         };
 
+        // vm.options = ['kills', 'deaths', 'assists', 'kdr', 'cs', 'gpm', 'apm', 'xpm', 'wards', 'herodmg', 'bdmg'];
+        vm.options = [
+            {value: 'kills', label: 'Kills'},
+            {value: 'deaths', label: 'Deaths'},
+            {value: 'assists', label: 'Assists'},
+            {value: 'kdr', label: 'KDR'},
+            {value: 'cs', label: 'CS'},
+            {value: 'gpm', label: 'GPM'},
+            {value: 'apm', label: 'APM'},
+            {value: 'xpm', label: 'XPM'},
+            {value: 'wards', label: 'Wards'},
+            {value: 'herodmg', label: 'Hero Damage'},
+            {value: 'bdmg', label: 'Kills'},
+        ];
+        $scope.selectedGraph = vm.options[5];
 
         _.forEach(heroData, function(n) {
             vm.heroData[_.keys(n)[0]] = n[_.keys(n)[0]];
         });
+
+        var regraph = function(){
+            MG.data_graphic({
+                title: $scope.selectedGraph.label,
+                data: vm.match.players,
+                chart_type: 'bar',
+                x_accessor: 'nickname',
+                y_accessor: $scope.selectedGraph.value,
+                full_width: true,
+                height: 350,
+                left: 30,
+                top: 10,
+                right: 0,
+                target: '#graph',
+                bar_orientation: 'vertical',
+            });
+        };
 
         ApiService.match($routeParams.match, res => {
             vm.match = res;
@@ -55,40 +87,18 @@ class MatchCtrl {
                     }
                 });
             });
-            MG.data_graphic({
-                title: "GPM",
-                data: vm.match.players,
-                chart_type: 'bar',
-                x_accessor: 'nickname',
-                y_accessor: 'gpm',
-                full_width: true,
-                height: 350,
-                left: 30,
-                right: 0,
-                top: 10,
-                target: '#gpm',
-                color_accessor: 'color',
-                bar_orientation: 'vertical',
-            });
-            MG.data_graphic({
-                title: "APM",
-                data: vm.match.players,
-                chart_type: 'bar',
-                x_accessor: 'nickname',
-                y_accessor: 'apm',
-                full_width: true,
-                height: 350,
-                left: 30,
-                top: 10,
-                right: 0,
-                target: '#apm',
-                bar_orientation: 'vertical',
-            });
+            regraph();
+        });
+
+        $scope.$watch('selectedGraph', function(newval, oldval){
+            if(newval !== oldval && vm.match){
+                regraph();
+            }
         });
 
     }
 }
 
-MatchCtrl.$inject = ['$routeParams', 'ApiService', 'heroData', 'BaseUrl'];
+MatchCtrl.$inject = ['$routeParams', 'ApiService', 'heroData', 'BaseUrl', '$scope'];
 
 export default MatchCtrl;

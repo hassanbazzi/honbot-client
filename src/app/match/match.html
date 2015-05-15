@@ -38,6 +38,9 @@
     </div>
     <div class="row">
         <alert></alert>
+        <div class="col-xs-12">
+            <adsense></adsense>
+        </div>
         <div class="col-xs-12 table-responsive">
             <table id="match" class="table" ng-repeat="(key, t) in [1, 2] track by $index">
                 <thead>
@@ -52,7 +55,7 @@
                         <th title="Creep Kills" width="4%">CK</th>
                         <th title="Creep Denies" width="4%">CD</th>
                         <th title="Gold Per Minute" width="4%">GPM</th>
-                        <th title="Experience per minute" width="4%">XP</th>
+                        <th title="Experience per minute" width="4%">XPM</th>
                         <th title="Actions Per Minute" width="4%">APM</th>
                         <th title="Wards" width="4%">W</th>
                         <th title="Hero Damage" width="4%">HD</th>
@@ -104,8 +107,8 @@
                         <td>{{ ::player.xpm | number:0 }}</td>
                         <td>{{ ::player.apm | number:0 }}</td>
                         <td>{{ ::player.wards }}</td>
-                        <td>{{ ::player.herodmg | numeraljs:'0.0 a' }}</td>
-                        <td>{{ ::player.bdmg | numeraljs:'0.0 a' }}</td>
+                        <td>{{ ::player.herodmg | numeraljs:'0.0a' }}</td>
+                        <td>{{ ::player.bdmg | numeraljs:'0.0a' }}</td>
                     </tr>
                     <tr>
                         <td>Total</td>
@@ -117,23 +120,34 @@
                         <td>{{ ::ctrl['team'+t].kdr | number:1 }}</td>
                         <td>{{ ::ctrl['team'+t].cs }}</td>
                         <td>{{ ::ctrl['team'+t].denies }}</td>
-                        <td>{{ ::ctrl['team'+t].gpm | numeraljs:'0.0 a' }}</td>
-                        <td>{{ ::ctrl['team'+t].xpm | numeraljs:'0.0 a' }}</td>
+                        <td>{{ ::ctrl['team'+t].gpm | numeraljs:'0.0a' }}</td>
+                        <td>{{ ::ctrl['team'+t].xpm | numeraljs:'0.0a' }}</td>
                         <td>{{ ::ctrl['team'+t].apm | number:0 }}</td>
                         <td>{{ ::ctrl['team'+t].wards }}</td>
-                        <td>{{ ::ctrl['team'+t].herodmg | numeraljs:'0.0 a' }}</td>
-                        <td>{{ ::ctrl['team'+t].bdmg | numeraljs:'0.0 a' }}</td>
+                        <td>{{ ::ctrl['team'+t].herodmg | numeraljs:'0.0a' }}</td>
+                        <td>{{ ::ctrl['team'+t].bdmg | numeraljs:'0.0a' }}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
-            <div id="gpm"></div>
+        <div class="col-xs-12">
+            <adsense></adsense>
         </div>
-        <div class="col-md-6">
-            <div id="apm"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3 text-center">
+            <br>
+            Change Graph:
+            <button 
+                type="button"
+                class="btn btn-success"
+                ng-model="selectedGraph"
+                bs-options="option.label for option in ctrl.options"
+                bs-select>Target
+            </button>
+            <div id="graph"></div>
         </div>
     </div>
     <div class="row">
@@ -142,6 +156,11 @@
                 <li class="text-muted">HoN Version: {{ ctrl.match.version }}</li>
                 <li class="text-muted"><a href="{{ ctrl.BaseUrl }}/match/{{ ctrl.match.id }}/">Raw Data</a></li>
             </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <adsense></adsense>
         </div>
     </div>
 </div>

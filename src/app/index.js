@@ -8,6 +8,7 @@ import MatchCtrl from './match/match.controller';
 import BaseUrl from './services/baseurl';
 import ApiService from './services/api.service';
 import ModeService from './services/mode.service';
+import adsense from './directives/adsense';
 import socket from './factories/socket';
 import largeHero from './largeHero';
 import heroData from './heroData';
@@ -18,14 +19,15 @@ angular.module('client', ['ngRoute', 'mgcrea.ngStrap', 'angularMoment', 'btford.
     .controller('PlayerCtrl', PlayerCtrl)
     .controller('MatchCtrl', MatchCtrl)
     .controller('HistoryCtrl', HistoryCtrl)
-    .service('BaseUrl', BaseUrl)
     .factory('socket', socket)
+    .service('BaseUrl', BaseUrl)
     .service('ApiService', ApiService)
     .service('ModeService', ModeService)
+    .directive('adsense', adsense)
     .constant('largeHero', largeHero)
     .constant('heroData', heroData)
-    .config(['$routeProvider', '$locationProvider', '$numeraljsConfigProvider', AppController]);
-
+    .config(['$routeProvider', '$locationProvider', '$numeraljsConfigProvider', AppController])
+    .run(['$rootScope', AppRunner]);
 
 function AppController($routeProvider, $locationProvider, $numeraljsConfigProvider) {
     $numeraljsConfigProvider.setDefaultFormat('0.0 $');
@@ -59,4 +61,16 @@ function AppController($routeProvider, $locationProvider, $numeraljsConfigProvid
         .otherwise({
             redirectTo: '/'
         });
+}
+
+function AppRunner($rootScope) {
+    $rootScope.$on('$routeChangeStart', function(){
+        // Object.keys(window).filter(function(k) { return /google/.test(k) }).forEach(
+        //     function(key) {
+        //         console.log(key)
+        //         console.log(window[key])
+        //         delete(window[key]);
+        //     }
+        // );
+    })
 }
