@@ -15,6 +15,4 @@ var adsense = function($timeout) {
     };
 };
 
-
-
 export default adsense;
