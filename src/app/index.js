@@ -11,6 +11,7 @@ import ModeService from './services/mode.service';
 import adsense from './directives/adsense';
 import socket from './factories/socket';
 import largeHero from './largeHero';
+import itemList from './itemList';
 import heroData from './heroData';
 
 angular.module('client', ['ngRoute', 'mgcrea.ngStrap', 'angularMoment', 'btford.socket-io', 'ngNumeraljs', 'angulartics', 'angulartics.google.analytics'])
@@ -25,6 +26,7 @@ angular.module('client', ['ngRoute', 'mgcrea.ngStrap', 'angularMoment', 'btford.
     .service('ModeService', ModeService)
     .directive('adsense', adsense)
     .constant('largeHero', largeHero)
+    .constant('itemList', itemList)
     .constant('heroData', heroData)
     .config(['$routeProvider', '$locationProvider', '$numeraljsConfigProvider', AppController]);
 

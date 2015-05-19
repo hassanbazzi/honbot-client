@@ -59,17 +59,22 @@ class ApiService {
         this.$analytics.eventTrack('api', {category: 'history', label: pid});
         return this.$http.get(`${this.host}/history/${pid}/${page}/${mode}/`);
     }
-    match(id, callback) {
+    match(id, callback, error) {
         this.$analytics.eventTrack('api', {category: 'match', label: id});
         if (!this.matches[id]) {
-             this.$http.get(`${this.host}/match/${id}/`).success(res => {
-                this.matches[id] = res;
-                callback(res);
-             });
+            this.$http.get(`${this.host}/match/${id}/`).success(res => {
+                if (res !== '') {
+                    this.matches[id] = res;
+                    callback(res);
+                } else {
+                    error();
+                }
+            });
         } else {
             callback(this.matches[id]);
         }
     }
+
     saveMatches(data){
         var that = this;
         _.forEach(data, function(n){

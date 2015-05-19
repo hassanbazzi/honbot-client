@@ -1,7 +1,11 @@
 <div ng-include="'app/components/navbar/navbar.html'"></div>
 
 <div class="container">
+    <alert></alert>
     <div class="row">
+        <div class="col-xs-12">
+            <adsense></adsense>
+        </div>
 
         <div class="col-md-5">
             <div class="media">
@@ -10,7 +14,7 @@
                 </div>
                 <div class="media-body">
                     <h2 class="media-heading" style="padding-top: 5px">Match: {{ ctrl.match.id }}</h2>
-                    <h5 class="text-muted" style="padding-left: 2px" am-time-ago="ctrl.match.date"></h5>
+                    <h5 style="padding-left: 2px"><span am-time-ago="ctrl.match.date" data-title="{{ ctrl.match.date | date:'medium' }}" data-placement="right" bs-tooltip class="text-muted"></span></h5>
                 </div>
             </div>
         </div>
@@ -37,10 +41,6 @@
 
     </div>
     <div class="row">
-        <alert></alert>
-        <div class="col-xs-12">
-            <adsense></adsense>
-        </div>
         <div class="col-xs-12 table-responsive">
             <table id="match" class="table" ng-repeat="(key, t) in [1, 2] track by $index">
                 <thead>
@@ -90,8 +90,8 @@
                         </td>
                         <td>
                             <a ng-repeat="item in player.items track by $index"
-                               href="/item/{{ i }}/"
-                               data-title="swag"
+                               ng-href="/item/{{ item }}/"
+                               data-title="{{ctrl.items[item].name}}"
                                bs-tooltip>
                                 <img ng-if="item" ng-src="assets/images/items/{{ item }}.jpg" width="30">
                             </a>
@@ -117,7 +117,7 @@
                         <td>{{ ::ctrl['team'+t].kills }}</td>
                         <td>{{ ::ctrl['team'+t].deaths }}</td>
                         <td>{{ ::ctrl['team'+t].assists }}</td>
-                        <td>{{ ::ctrl['team'+t].kdr | number:1 }}</td>
+                        <td>-</td>
                         <td>{{ ::ctrl['team'+t].cs }}</td>
                         <td>{{ ::ctrl['team'+t].denies }}</td>
                         <td>{{ ::ctrl['team'+t].gpm | numeraljs:'0.0a' }}</td>

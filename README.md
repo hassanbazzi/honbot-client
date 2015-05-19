@@ -12,3 +12,16 @@ npm install
 bower install
 gulp serve
 ```
+
+##Scripts
+#### large_hero
+Run this to download all large image cutouts for the homepage. Will output a txt file with paths to images. Place this in largeHero.js.
+```
+python large_hero
+```
+
+#### item_setup
+downloads icon images and creates json object in items.txt. Place in itemlist.js
+```
+python item_setup
+```

@@ -3,7 +3,7 @@
 import _ from 'lodash';
 
 class MatchCtrl {
-    constructor($routeParams, ApiService, heroData, BaseUrl, $scope) {
+    constructor($routeParams, ApiService, heroData, BaseUrl, $scope, $alert, itemList) {
         let vm = this;
 
         vm.BaseUrl = BaseUrl.host;
@@ -11,6 +11,7 @@ class MatchCtrl {
         vm.team1 = {};
         vm.team2 = {};
         vm.ptips = {};
+        vm.items = itemList;
 
         var modes = {
             1: 'rnk',
@@ -55,17 +56,20 @@ class MatchCtrl {
             });
         };
 
-        ApiService.match($routeParams.match, res => {
+        ApiService.match($routeParams.match, function(res){
             vm.match = res;
             vm.duration = moment.duration(res.length, 'seconds').format();
             vm.m = modes[res.mode];
 
-            var pids = _.pluck(res.players, 'player_id').join(',');
-            ApiService.bulkPlayers(pids).success(res => {
-                _.forEach(res, (n) => {
-                    vm.ptips[n.account_id] = n;
+            if(res.players){
+                var pids = _.pluck(res.players, 'player_id').join(',');
+                ApiService.bulkPlayers(pids).success(res => {
+                    _.forEach(res, (n) => {
+                        vm.ptips[n.account_id] = n;
+                    });
                 });
-            });
+            }
+            
             vm.match.players = _.sortBy(vm.match.players, 'position');
             _.forEach(res.players, function(n) {
                 _.forEach(n, function(j, key) {
@@ -88,6 +92,15 @@ class MatchCtrl {
                 });
             });
             regraph();
+        }, function(){
+            $alert({
+                title: 'ERROR:',
+                content: 'Match not available. Try again maybe later.',
+                placement: 'top',
+                container: 'alert',
+                type: 'danger',
+                show: true
+            });
         });
 
         $scope.$watch('selectedGraph', function(newval, oldval){
@@ -99,6 +112,6 @@ class MatchCtrl {
     }
 }
 
-MatchCtrl.$inject = ['$routeParams', 'ApiService', 'heroData', 'BaseUrl', '$scope'];
+MatchCtrl.$inject = ['$routeParams', 'ApiService', 'heroData', 'BaseUrl', '$scope', '$alert', 'itemList'];
 
 export default MatchCtrl;
