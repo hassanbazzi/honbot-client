@@ -16,6 +16,7 @@ gulp serve
 ##Scripts
 #### large_hero
 Run this to download all large image cutouts for the homepage. Will output a txt file with paths to images. Place this in largeHero.js.
+Also downloads hero icons and creates and object of hero names.
 ```
 python large_hero
 ```

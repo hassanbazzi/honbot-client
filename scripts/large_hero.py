@@ -14,11 +14,22 @@ for a in soup.find_all("div", attrs={"class": "filterObjectGrid"}):
         pass
 
 result = []
+hero_names = {}
 for hero in heroes:
     url = 'https://www.heroesofnewerth.com' + hero
     r = requests.get(url)
     soup = BeautifulSoup(r.text)
     alts = int(soup.find("p", class_="subTitle fontM").text[-1])
+    hid = hero.split('/heroes/view/')[1].split('#')[0]
+    hero_names[int(hid)] = hero.split('#')[1].replace('+', ' ')
+    # download hero icons
+    req = requests.get('https://www.heroesofnewerth.com/images/heroes/' + hid + '/icon_128.jpg', stream=True)
+    if req.status_code == 200:
+        handle = open('heroes/' + hid + '.jpg', 'wb')
+        for block in req.iter_content(1024):
+            if not block:
+                break
+            handle.write(block)
     for x in xrange(alts):
         url = 'https://www.heroesofnewerth.com/images/heroes/'
         filename = str(hero.split('#')[1])
@@ -46,3 +57,6 @@ for hero in heroes:
 
 with open('largehero.txt', 'w') as outfile:
     json.dump(result, outfile)
+
+with open('heronames.txt', 'w') as outfile:
+    json.dump(hero_names, outfile)

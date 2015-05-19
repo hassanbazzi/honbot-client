@@ -12,6 +12,7 @@ import adsense from './directives/adsense';
 import socket from './factories/socket';
 import largeHero from './largeHero';
 import itemList from './itemList';
+import heroList from './heroList';
 import heroData from './heroData';
 
 angular.module('client', ['ngRoute', 'mgcrea.ngStrap', 'angularMoment', 'btford.socket-io', 'ngNumeraljs', 'angulartics', 'angulartics.google.analytics'])
@@ -27,6 +28,7 @@ angular.module('client', ['ngRoute', 'mgcrea.ngStrap', 'angularMoment', 'btford.
     .directive('adsense', adsense)
     .constant('largeHero', largeHero)
     .constant('itemList', itemList)
+    .constant('heroList', heroList)
     .constant('heroData', heroData)
     .config(['$routeProvider', '$locationProvider', '$numeraljsConfigProvider', AppController]);
 
