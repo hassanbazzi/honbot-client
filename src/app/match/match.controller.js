@@ -71,6 +71,7 @@ class MatchCtrl {
             }
             
             vm.match.players = _.sortBy(vm.match.players, 'position');
+            regraph();
             _.forEach(res.players, function(n) {
                 _.forEach(n, function(j, key) {
                     j = Number(j);
@@ -91,7 +92,6 @@ class MatchCtrl {
                     }
                 });
             });
-            regraph();
         }, function(){
             $alert({
                 title: 'ERROR:',

@@ -63,7 +63,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="(key, player) in ctrl.match.players | filter:{team: t} | orderBy:'position' track by $index" class="player-{{ player.position }}">
+                    <tr ng-repeat="(key, player) in ctrl.match.players | filter:{team: t} track by $index" class="player-{{ player.position }}">
                         <td>
                             <a data-title="{{ ctrl.heroData[player.hero_id].disp_name }}"
                                data-placement="right"
